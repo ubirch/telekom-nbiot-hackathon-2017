@@ -5,7 +5,7 @@
 1. [Installation](#installation)
 2. [Development](#development)
     1. [Debugging](#debugging)
-        1. [Serial Console](#seriel-console)
+        1. [Serial Console](#serial-console)
         2. [GDB](#gdb)
         
 ## Installation
