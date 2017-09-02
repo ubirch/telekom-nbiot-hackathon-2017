@@ -22,7 +22,7 @@ Zur Installation dieser Anleitung folgen:
 4. zum compilieren `yt build` ausführen
 5. die Datei `build/calliope-mini-classic-gcc/source/calliope-project-template-combined.hex` auf das USB Lauferk `MINI` kopieren
 
-## Entwickung
+## Entwicklung
 
 Die Quellen des Beispielprojects befinden sich in `source/main.cpp`. Im gleichen Verzeichnis befinden sich noch 
 Helferbibliotheken in Unterverzeichnissen. 
