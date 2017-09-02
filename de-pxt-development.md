@@ -3,7 +3,7 @@
 # Calliope mini Entwicklung mit MakeCode (PXT) Editor
 
 1. [Online Editor](#online)
-2. [Programme entwickeln und ausführen](#programme-entwickeln-und-ausführen)
+2. [Programme entwickeln und ausführen](#programme-entwicklen-und-ausführen)
     1. [BC95 Editor Paket installieren](#bc95-erweiterung-installieren)
     2. [Entwickeln von Programmen](#entwickeln-von-programmen)
 3. [Offline Editor Alternative](#offline-alternative)

@@ -2,6 +2,14 @@
 
 # Calliope mini Development using C++
 
+1. [Installation](#installation)
+2. [Development](#development)
+    1. [Debugging](#debugging)
+        1. [Serial Console](#seriel-console)
+        2. [GDB](#gdb)
+        
+## Installation
+
 This is for advanced developers who have worked with C/C++ before or dare to handle the development environment.
 It is required to install the development tool [yotta](http://docs.yottabuild.org/#installing) and the required
 compiler suite for ARM Cortex-M processors.
