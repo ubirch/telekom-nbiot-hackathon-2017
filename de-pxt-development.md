@@ -26,7 +26,7 @@ benutzt werden kann, muss ein Erweiterungsmodul im Editor hinzugefügt werden:
 
 ## Entwickeln von Programmen
 
-Um einfach zu starten, einfach das [Beispielprojekt herunterladen](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/mini-DE-NB-IoT-Example.hex) und per drag & drop auf das Editorfenster ziehen.
+Um einfach zu starten, einfach das [Beispielprojekt herunterladen](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/mini-DE-NB-IoT-Example.hex) (rechts Klick und Herunterladen als ...) und per drag & drop auf das Editorfenster ziehen.
 Das ganze sollte dann so aussehen:
 
 ![Beispielprojekt](files/de-example.png)
