@@ -31,7 +31,7 @@ That's it. All that is left, is opening the following URL in your web browser:
 
 ## Install the BC95 add-on module for PXT
 
-To use the [BC95 Modu](http://www.quectel.com/product/bc95.htm) hardware module from PXT, you need to add a package
+To use the [BC95 module](http://www.quectel.com/product/bc95.htm) hardware module from PXT, you need to add a package
 to the online editor:
 
 1. Click Add Package<br/>![1](files/en-packet-add.png) 

@@ -32,7 +32,7 @@ Browser öffnen: [http://localhost:8080](http://localhost:8080).
 
 ## BC95 Erweiterung installieren
 
-Bevor das [BC95 Modu](http://www.quectel.com/product/bc95.htm) zusammen mit dem [Calliope mini](https://calliope.cc)
+Bevor das [BC95 Modul](http://www.quectel.com/product/bc95.htm) zusammen mit dem [Calliope mini](https://calliope.cc)
 benutzt werden kann, muss ein Erweiterungsmodul im Editor hinzugefügt werden:
 
 1. Paket hinzufügen anklicken<br/>![1](files/de-packet-add.png) 
