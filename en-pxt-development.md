@@ -27,7 +27,7 @@ to the online editor:
 
 ## Development
 
-To start, [download the example project](https://github.com/ubirch/telekom-nbiot-hackathon-2017/mini-DE-NB-IoT-Beispiel.hex)
+To start, [download the example project](https://github.com/ubirch/telekom-nbiot-hackathon-2017/mini-EN-NB-IoT-Beispiel.hex)
 and simply drag and drop it onto the online editor window:
 
 ![Example Project](files/en-example.png)
