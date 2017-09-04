@@ -1,4 +1,4 @@
-[![ubirch GmbH](https://www.ubirch.com/wp-content/uploads/2016/02/ubirch.png)](https://ubirch.com)
+[![ubirch GmbH](files/ubirch.png)](https://ubirch.com)
 
 # Telekom NB-IoT Hackathon 2017
 
