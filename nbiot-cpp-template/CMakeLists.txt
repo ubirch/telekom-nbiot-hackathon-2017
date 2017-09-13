@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_TOOLCHAIN_FILE yotta_targets/mbed-gcc/CMake/toolchain.cmake)
 set(CMAKE_BUILD_TYPE Debug)
 
-project(calliope-firmware C CXX)
+project(nbiot-cpp-template C CXX)
 include(yotta_targets/calliope-mini-classic-gcc/CMake/toolchain.cmake)
 
 add_definitions(-DNRF51 -DTARGET_NRF51 -DTARGET_NRF51_CALLIOPE)
@@ -58,11 +58,15 @@ file(GLOB_RECURSE NRF51_SDK_SRC
 add_library(nrf51sdk ${NRF51_SDK_SRC})
 include_directories(${NRF51_SDK_INC})
 
+include(yotta_modules/ubirch-nacl-cm0/lib.cmake)
+
 add_executable(main
         source/main.cpp
+        source/utils/utils.cpp
+        source/utils/random.c
         # add more source files here, if needed
         )
-target_link_libraries(main microbit microbit-dal microbit nrf51sdk)
+target_link_libraries(main microbit microbit-dal libnacl nrf51sdk)
 
 add_custom_target(compile
         COMMAND yt build

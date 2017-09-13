@@ -4,7 +4,8 @@
   "description": "Calliope Project Template",
   "license": "Apache 2.0",
   "dependencies": {
-    "microbit": "calliope-mini/microbit#v2.0.0-rc8-calliope-1.0.3"
+    "microbit": "calliope-mini/microbit#v2.0.0-rc8-calliope-1.0.3",
+    "ubirch-nacl-cm0": "ubirch/ubirch-nacl-cm0#v0.1.0"
   },
   "targetDependencies": {},
   "bin": "./source"

@@ -1,7 +1,30 @@
-# Calliope mini project template
+# ubirch NB-IoT hackathon C++ template
 
 - first, install [yotta](http://docs.yottabuild.org/#installing)
 - run `yt update` once, it will download all required dependencies
+
+# ECC key
+
+To use the [ubirch backend](http://ubirch.demo.ubirch.com/) you will need to create
+your own ECC key. A simple way to generate a key and register your Callioper mini
+with the backend, run the provides `ecc-generate.py` script.
+
+However, before you do that run [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
+on your Calliope mini and write down the 8 hex digit ID.
+
+```bash
+# you may need to install the ed25519 library
+pip install ed25519
+python ecc-generate.py
+```
+
+The script outputs C-code that can be directly included into `source/main.cpp`. Simply replace
+the test keys. The script also registers your device and the public key with the ubirch
+backend.
+
+Now you are ready to compile (`yt build`) and copy the file `build/calliope-mini-classic-gcc/source/calliope-project-template-combined.hex`
+onto the `MINI` USB drive. Log into the backend and the temperature value should show up.
+
 
 # IDE use
 

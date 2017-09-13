@@ -3,6 +3,6 @@
         "bluetooth": {
             "enabled": 0
         },
-        "debug": 0
+        "debug": 1
     }
 }
