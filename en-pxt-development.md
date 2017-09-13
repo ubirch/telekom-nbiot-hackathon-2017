@@ -4,8 +4,10 @@
 
 1. [Online Editor](#online)
 2. [Development](#develop-software-and-execute-it)
-    1. [Install BC95 Editor Add-on](#install-the-bc95-add-on-module-for-pxt)
+    1. [Install BC95 Editor Add-on](#install-the-ubirch-add-on-module-for-pxt)
     2. [Write code](#development)
+        1. [Create Secret Key](#create-secret-key)
+        2. [Register Device with Backend](#register-device-with-backend)
 3. [Offline Editor Alternative](#offline-alternative)    
 
 # Online 
@@ -16,18 +18,18 @@ The simplest way to start is using the online editor:
 
 # Develop Software and Execute it
 
-## Install the BC95 add-on module for PXT
+## Install the ubirch add-on module for PXT
 
-To use the [BC95 module](http://www.quectel.com/product/bc95.htm) hardware module from PXT, you need to add a package
-to the online editor:
+Bevor you can use the [BC95 module](http://www.quectel.com/product/bc95.htm) hardware module with the [ubirch](http://ubirch.com)
+backend from PXT, you need to add a package to the online editor:
 
 1. Click Add Package<br/>![1](files/en-packet-add.png) 
-2. select `pxt-calliope-bc95`<br/>![2](files/en-packet-add-1.png)
-3. Now the block group`BC95` appears in your list<br/>![3](files/en-packet-add-2.png)
+2. select `pxt-ubirch`<br/>![2](files/en-packet-add-1.png)
+3. Now the block group `ubirch` appears together with `BC95` in your list<br/>![3](files/en-packet-add-2.png)
 
 ## Development
 
-To start, [download the example project](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/mini-EN-NB-IoT-Example.hex)
+To start, [download the example project](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/en-ubirch-NB-IoT-Messaging.hex)
 (right click and download as ...) and simply drag and drop it onto the online editor window:
 
 ![Example Project](files/en-example.png)
@@ -35,17 +37,30 @@ To start, [download the example project](https://raw.githubusercontent.com/ubirc
 Der Javascript Code dazu sieht folgendermassen aus:
 
 ```typescript
-basic.forever(() => {
-    bc95.sendNumber(
-        "temperature",
-        input.temperature()
+input.onButtonPressed(Button.B, () => {
+    bc95.send(
+        ubirch.createStringMessage(
+            "info",
+            control.deviceName()
+        )
     )
-    bc95.sendNumber(
-        "light",
-        input.lightLevel()
-    )
-    basic.pause(10000)
+    if (!(bc95.sendOk())) {
+        basic.showIcon(IconNames.Sad)
+    }
 })
+input.onButtonPressed(Button.A, () => {
+    bc95.send(
+        ubirch.createNumberMessage(
+            "temperature",
+            input.temperature()
+        )
+    )
+    if (!(bc95.sendOk())) {
+        basic.showIcon(IconNames.Sad)
+    }
+})
+ubirch.setSignKey("") // <-- YOU NEED TO ADD THE SECRET KEY HERE!
+modem.enableDebug(true)
 bc95.init(
     SerialPin.C17,
     SerialPin.C16,
@@ -58,6 +73,14 @@ bc95.setServer("13.93.47.253", 9090)
 ```
 
 > Remember to download the program again, after changing code and copy the resulting file onto the USB drive `MINI`. 
+
+### Create Secret Key
+
+- TODO
+
+### Register Device with Backend
+
+- TODO
 
 # Offline Alternative
 
