@@ -80,6 +80,9 @@ bc95.setServer("13.93.47.253", 9090)
 
 ### Register Device with Backend
 
+Identify the Calliope mini: download [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
+and copy it onto the Calliope mini. The ID will be shown as a HEX string on the display (i.e. `id:AB12CD34`).
+
 - TODO
 
 # Offline Alternative

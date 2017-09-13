@@ -71,6 +71,7 @@ bc95.attach(
 )
 bc95.setServer("13.93.47.253", 9090)
 ```
+
 > Nachdem ein Programm erstellt wurde, kann dieses heruntergeladen werden und muss dann erneut auf 
 > das USB Laufwerk `MINI` kopiert werden.
 
@@ -79,6 +80,9 @@ bc95.setServer("13.93.47.253", 9090)
 - TODO
 
 ### Gerät am Backend anmelden
+
+Die ID des Calliope mini herausfinden: [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
+auf den Calliope mini spielen. Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. `id:AB12CD34`).
 
 - TODO
 
