@@ -9,7 +9,7 @@ Modul](http://www.quectel.com/product/bc95.htm) programmiert und gearbeitet werd
 Wie das BC95 Modul mit dem Calliope mini verbunden wird, [zeigt das Bild](#wiring) am Ende diese Dokuments.
 
 - Für alle: [Entwicklung mit Blockly und in Javascript](de-pxt-development.md)
-- Experten: [Entwicklung in C++](de-cpp-development.md) / [Code Template README](nbiot-cpp-template/README.md)
+- Experten: [Entwicklung in C++](de-cpp-development.md) / [Code Template README](nbiot-cpp-template/README.md) (Englisch)
 
 # ENGLISH
 
