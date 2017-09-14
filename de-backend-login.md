@@ -14,13 +14,7 @@ Hierzu gibt es 2 Möglichkeiten:
 #### 1. Streaming API
 Um die Daten kontinuierlich zu empfangen kann die Streaming API verwendet werden.
 
-Benötigt wird Mosquitto um auf den MQTT-Server zugreifen zu können.
-Installiert wird dieser client durch die Eingabe:
->brew install mosquitto
-
-(Vorraussetzung heirfür ist brew, sollte dies nicht installiert sein, kann dies über die Eingabe von:
->brew (ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-erfolgen)
+Benötigt wird <a href="https://mosquitto.org/download/">Mosquitto</a> um auf den MQTT-Server zugreifen zu können.
 
 Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden. Dazu gibt man: 
 >mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P SmartPublicLife2017
@@ -35,4 +29,17 @@ Die vom Calliope mini gesendeten Daten werden ausgegeben.
 
 
 #### 2. Query API
-Curl muss vorhanden sein
+Vorraussetzung ist <a href="https://curl.haxx.se/download.html">Curl</a>.
+
+Der Abruf der Daten erfolgt durch den Aufruf:
+>DEVICEID=$DEVICE_ID
+>TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
+>HOST=http://api.ubirch.demo.ubirch.com:8080
+>
+>#last 10 datapoints
+>
+>curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
+
+wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
+
+![DeviceID](files/show-deviceid.png)
