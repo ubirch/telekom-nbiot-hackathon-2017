@@ -20,6 +20,8 @@ privateKey, publicKey = ed25519.create_keypair(entropy=os.urandom)
 publicKeyEncoded = publicKey.to_ascii(encoding="hex").decode('latin1')
 privateKeyEncoded = privateKey.to_ascii(encoding="hex").decode('latin1')
 
+print
+print "COPY THE PRIVATE KEY INTO YOUR PXT SCRIPT:"
 print("public key : '" + publicKeyEncoded + "'")
 print("private key: '" + privateKeyEncoded + publicKeyEncoded + "'")
 bytes = re.findall("[0-9a-f]{2}", privateKeyEncoded + publicKeyEncoded)
