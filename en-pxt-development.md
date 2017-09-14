@@ -32,6 +32,9 @@ backend from PXT, you need to add a package to the online editor:
 To start, [download the example project](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/en-ubirch-NB-IoT-Messaging.hex)
 (right click and download as ...) and simply drag and drop it onto the online editor window:
 
+>PXT works asynchronously, so you should not press the buttons in rapid succession as it will
+>trigger the sending in parallel and may stop the modem from working. A reset recovers.
+
 ![Example Project](files/en-example.png)
 
 Der Javascript Code dazu sieht folgendermassen aus:
