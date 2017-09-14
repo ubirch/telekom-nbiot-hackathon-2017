@@ -80,16 +80,18 @@ bc95.setServer("13.93.47.253", 9090)
 
 > Achtung! PXT hat keine Unterstützung für Fliesskommazahlen!
 
-### Geheimen Schlüssel erzeugen
-
-- TODO
-
 ### Gerät am Backend anmelden
 
-Die ID des Calliope mini herausfinden: [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
+Um mit dem Backend zu arbeiten, muss die ID des Calliope mini herausgefunden werden: [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
 auf den Calliope mini spielen. Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. `id:AB12CD34`).
 
-- TODO
+### Geheimen Schlüssel erzeugen
+
+Mit dem script [ecc-generate.py](nbiot-cpp-template/ecc-generate.py) kann auf einer Kommandozeile ein ECC Schlüssel
+erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` im Programm eingegeben werden. Das Script
+registriert auch automatisch den öffentlichen Schlüssel beim backen.
+
+*Weiter Informationen finden sich auf der Seite [Backend Anmeldung](de-backend-login.md).*
 
 # Offline Alternative
 

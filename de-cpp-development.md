@@ -9,6 +9,8 @@
         2. [GDB](#gdb)
 3. [Pins](#pins)
 
+> Details zu Backend Registrierung und ECC Schlüsselerzeugung finden sich auf der [PXT Seite](de-pxt-development.md). 
+
 ## Installation
 
 Diese Variante ist für erfahrene Entwickler geeignet und erfordert

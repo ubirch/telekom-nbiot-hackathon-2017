@@ -8,7 +8,9 @@
         1. [Serial Console](#serial-console)
         2. [GDB](#gdb)
 3. [Pins](#pins)
-        
+  
+> Details on backend registration and ECC key generation can be found on the [PXT page](en-pxt-development.md). 
+      
 ## Installation
 
 This is for advanced developers who have worked with C/C++ before or dare to handle the development environment.

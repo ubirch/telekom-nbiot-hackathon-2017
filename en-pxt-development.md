@@ -79,16 +79,18 @@ bc95.setServer("13.93.47.253", 9090)
 
 > Attention! Be aware that PXT does not support floating point math.
 
-### Create Secret Key
-
-- TODO
-
 ### Register Device with Backend
 
 Identify the Calliope mini: download [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
 and copy it onto the Calliope mini. The ID will be shown as a HEX string on the display (i.e. `id:AB12CD34`).
 
-- TODO
+### Create Secret Key
+
+Use the script [ecc-generate.py](nbiot-cpp-template/ecc-generate.py) to create a new ECC key. The script requires the
+device ID and will automatically register the public key with the backend. Copy
+the private key string and setup your PXT program using `set sign key`.
+
+*More information can be found on the [Backend Registration](de-backend-login.md) page.*
 
 # Offline Alternative
 
