@@ -72,7 +72,7 @@ This is a list of sensors available. Not all sensors have drivers provided.
 
 ### [Grove - Ultrasonic Ranger](http://wiki.seeed.cc/Grove-Ultrasonic_Ranger/) (digital, add-on)
 
-- Typescript: (no driver, use `pins.digitalReadPin(DigitalPin.XX)`)
+- Typescript: [grove-ultrasonic-ranger.ts](typescript/grove-ultrasonic-ranger.ts) (use `pins.digitalReadPin(DigitalPin.XX)`)
 - C++: (use `uBit.io.XX.getDigitalValue()`)
 
 > didn't correctly sense range, may be due to typescript inaccuracy or timing issues
