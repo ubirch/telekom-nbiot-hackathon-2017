@@ -19,17 +19,9 @@ privateKey, publicKey = ed25519.create_keypair(entropy=os.urandom)
 
 publicKeyEncoded = publicKey.to_ascii(encoding="hex").decode('latin1')
 privateKeyEncoded = privateKey.to_ascii(encoding="hex").decode('latin1')
-publicKeySignature = privateKey.sign(msg=publicKey.to_bytes(), encoding="hex").decode('latin1')
 
 print("public key : '" + publicKeyEncoded + "'")
 print("private key: '" + privateKeyEncoded + publicKeyEncoded + "'")
-try:
-    publicKey.verify(sig=publicKeySignature, msg=publicKey.to_bytes(), encoding="hex")
-    print "pubkey signature: '" + publicKeySignature + "'"
-except ed25519.BadSignatureError:
-    print "ERROR: public key signature failed"
-    exit()
-
 bytes = re.findall("[0-9a-f]{2}", privateKeyEncoded + publicKeyEncoded)
 
 print
@@ -65,23 +57,23 @@ created = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.000Z')
 validNotAfter = datetime.utcfromtimestamp(ts + 3.154e+7).strftime('%Y-%m-%dT%H:%M:%S.000Z')
 pubKeyInfo = {
     "hwDeviceId": deviceId.lower(),
-    "pubKey": publicKeyEncoded,
+    "pubKey": publicKey.to_ascii(encoding="base64").decode('latin1'),
     "pubKeyId": str(uuid4()),
     "algorithm": "ed25519",
-    "previousPubKeyId": None,
+    # "previousPubKeyId": None,
     "created": created,
     "validNotBefore": created,
     "validNotAfter": validNotAfter
 }
 jsonPayload = json.dumps(pubKeyInfo, sort_keys=True, separators=(',', ':'), encoding="UTF-8")
-signedPubKeyInfo = privateKey.sign(msg=jsonPayload, encoding="hex").decode('latin1')
+signedPubKeyInfo = privateKey.sign(msg=jsonPayload, encoding="base64").decode('latin1')
 
 payload = {
     "pubKeyInfo": pubKeyInfo,
     "signature": signedPubKeyInfo,
-    "previousPubKeySignature": None
+    # "previousPubKeySignature": None
 }
 
-# print json.dumps(payload, separators=(',', ':'))
-r = requests.get("http://key.dev.ubirch.com:8095", data=payload)
+print json.dumps(payload, separators=(',', ':'))
+r = requests.get("http://key.demo.ubirch.com:8095", data=payload)
 print r.text

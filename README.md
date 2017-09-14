@@ -11,6 +11,11 @@ Wie das BC95 Modul mit dem Calliope mini verbunden wird, [zeigt das Bild](#wirin
 - Für alle: [Entwicklung mit Blockly und in Javascript](de-pxt-development.md)
 - Experten: [Entwicklung in C++](de-cpp-development.md) / [Code Template README](nbiot-cpp-template/README.md) (Englisch)
 
+> Das Verzeichnis [typescript](typescript) enthält Beispiele für die verschiedenen Sensoren
+> und der Code kann direkt in den Javascript Modus vom PXT Editor kopiert werden.
+
+- [Calliope mini: Technische Spezifikation](https://calliope-mini.github.io/)
+
 # ENGLISH
 
 This repository contains tutorials and examples how to program the [Calliope mini](https://calliope.cc)  together
@@ -21,8 +26,16 @@ How to connect the BC95 and the Calliope mini [is shown in the graphic](#wiring)
 - For everyone: [Develop using Blockly or Javascript](en-pxt-development.md)
 - For experts: [Develop using C++](en-cpp-development.md) / [Code Template README](nbiot-cpp-template/README.md)
 
+> The subdirectory [typescript](typescript) contains typescript code examples for the different sensors
+> available. The code can be pasted into the PXT editor in Javascript mode. 
+
+- [Calliope mini: specs](https://calliope-mini.github.io/)
 ----
 
 ### Wiring
 
 ![BC95 - Calliope mini wiring](files/wiring.png)
+
+### Pinout Calliope mini
+
+![Calliope mini pinout](https://calliope-mini.github.io/assets/v10/img/Calliope_mini_1.0_pinout_fin.jpg)
