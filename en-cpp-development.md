@@ -7,6 +7,7 @@
     1. [Debugging](#debugging)
         1. [Serial Console](#serial-console)
         2. [GDB](#gdb)
+3. [Pins](#pins)
         
 ## Installation
 
@@ -58,3 +59,28 @@ $ arm-none-eabi-gdb build/calliope-mini-classic-gcc/source/calliope-project-temp
 (gdb) mon reset
 (gdb) c
 ```
+
+## Pins
+
+```
+C0/P0 = MICROBIT_ID_IO_P12  // edge connector 0
+C1/P1 = MICROBIT_ID_IO_P0   // edge connector 1
+C2/P2 = MICROBIT_ID_IO_P1   // edge connector 2, analog
+C3/P3 = MICROBIT_ID_IO_P16  // edge connector 3, analog
+C4    = MICROBIT_ID_IO_P3   // LED matrix COL1
+C5    = MICROBIT_ID_IO_P4   // LED matrix COL2
+C6    = MICROBIT_ID_IO_P10  // LED matrix COL3
+C7    = MICROBIT_ID_IO_P13  // LED matrix COL4
+C8    = MICROBIT_ID_IO_P14  // LED matrix COL5
+C9    = MICROBIT_ID_IO_P15  // LED matrix COL6
+C10   = MICROBIT_ID_IO_P9   // LED matrix COL7
+C11   = MICROBIT_ID_IO_P7   // LED matrix COL8
+C12   = MICROBIT_ID_IO_P6   // LED matrix COL9
+C16   = MICROBIT_ID_IO_P2   // RX, analog, Grove
+C17   = MICROBIT_ID_IO_P8   // TX, analog, Grove
+C18   = MICROBIT_ID_IO_P20  // SDA, Grove
+C19   = MICROBIT_ID_IO_P19  // SCL, Grove
+MIC   = MICROBIT_ID_IO_P21  // Microphone 
+```
+
+> C18/C19 are fixed to I<sup>2</sup>C and can't be used for digital right now.
