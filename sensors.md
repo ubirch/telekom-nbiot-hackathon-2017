@@ -1,6 +1,10 @@
+[![ubirch GmbH](files/ubirch.png)](https://ubirch.com)
+
 # Sensors
 
-This is a list of sensors available. Not all sensors have drivers provided.
+> This is a list of sensors available. Not all sensors have drivers provided. However, most sensors
+> can be used directly via i2c, digital or analog pins. Bevor attaching a sensor, check
+> that it works with 3.3v.
 
 ### Accelerometer/Compass (i2c, on-board)
 
@@ -38,6 +42,11 @@ This is a list of sensors available. Not all sensors have drivers provided.
 - Typescript: [grove-i2c-color-sensor.ts](typescript/grove-i2c-color-sensor.ts)
 - C++: (use uBit.i2c, adapt from [mbed code](https://developer.mbed.org/users/HannesTschofenig/code/TCS34725/))
 
+### ISL29125 Color Sensor
+
+- Typescript: add package and select `isl29125` add-on
+- C++: (adapt from [mbed](https://developer.mbed.org/components/ISL29125/))
+
 ### [Grove Temperature & Humidity Sensor](http://wiki.seeed.cc/Grove-TemptureAndHumidity_Sensor-High-Accuracy_AndMini-v1.0/) (i2c, add-on)
 
 - Typescript: (no driver, use PXT i2c directly)
@@ -70,17 +79,25 @@ This is a list of sensors available. Not all sensors have drivers provided.
 - Typescript: [grove-ultrasonic-ranger.ts](typescript/grove-ultrasonic-ranger.ts) (use `pins.analogReadPin(AnalogPin.XX)`)
 - C++: (use `uBit.io.XX.getAnalogValue()`)
 
+### [Grove - IR Distance Interruptor v1.2](http://wiki.seeed.cc/Grove-IR_Distance_Interrupter_v1.2/) (digital, add-on)
+
+- Typescript: [grove-ir-distance.ts](typescript/grove-ir-distance.ts)
+- C++: (use `uBit.io.XX.getDigitalValue()`)
+
 ### [Grove - Ultrasonic Ranger](http://wiki.seeed.cc/Grove-Ultrasonic_Ranger/) (digital, add-on)
 
 - Typescript: [grove-ultrasonic-ranger.ts](typescript/grove-ultrasonic-ranger.ts) (use `pins.digitalReadPin(DigitalPin.XX)`)
 - C++: (use `uBit.io.XX.getDigitalValue()`)
 
+> Seeed provides a PXT add-on: Add Package and select Grove!
 > didn't correctly sense range, may be due to typescript inaccuracy or timing issues
 
 ### [Grove UV Sensor](http://wiki.seeed.cc/Grove-UV_Sensor/) (analog, add-on)
 
-- Typescript: [grove-uv-sensor.ts](typescript/grove-uv-sensor.ts)
+- Typescript: (no driver, use `pins.analogReadPin(AnalogPin.XX)`)
 - C++: (`uBit.io.XX.getAnalogValue()`, see typescript code)
+
+> the sensor didn't work as expected, the calculation from Seeed may need to be adjusted
 
 ### [Grove PIR Motion Sensor](http://wiki.seeed.cc/Grove-PIR_Motion_Sensor/) (digital, add-on)
 
@@ -89,6 +106,10 @@ This is a list of sensors available. Not all sensors have drivers provided.
 
 > the sensor didn't work as expected
 
+### [Grove Dust Sensor](http://wiki.seeed.cc/Grove-Dust_Sensor/) (digital, add-on)
+
+> untested
 ### Hall Sensor (analog/digital, add-on)
 
-- untested
+> untested
+

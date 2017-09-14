@@ -15,6 +15,7 @@ Wie das BC95 Modul mit dem Calliope mini verbunden wird, [zeigt das Bild](#wirin
 > und der Code kann direkt in den Javascript Modus vom PXT Editor kopiert werden.
 
 - [Calliope mini: Technische Spezifikation](https://calliope-mini.github.io/)
+- [Liste von Sensoren](sensors.md)
 
 # ENGLISH
 
@@ -30,6 +31,8 @@ How to connect the BC95 and the Calliope mini [is shown in the graphic](#wiring)
 > available. The code can be pasted into the PXT editor in Javascript mode. 
 
 - [Calliope mini: specs](https://calliope-mini.github.io/)
+- [list of sensors](sensors.md)
+
 ----
 
 ### Wiring

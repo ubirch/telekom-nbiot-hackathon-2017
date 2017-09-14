@@ -14,7 +14,6 @@ Jetzt kann der device angelegt werden, hierfür muss nur die ID des Calliope min
 
 ![AddDevice](files/show-add-device.png)
 
-
 Nach dem Wechsel auf den Reiter 'devinfo' kann man den Abruf der vom Gerät gesendeten Daten einrichten.
 Hierzu gibt es 2 Möglichkeiten:
 #### 1. Streaming API
