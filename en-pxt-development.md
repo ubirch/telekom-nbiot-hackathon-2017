@@ -74,6 +74,8 @@ bc95.setServer("13.93.47.253", 9090)
 
 > Remember to download the program again, after changing code and copy the resulting file onto the USB drive `MINI`. 
 
+> Attention! Be aware that PXT does not support floating point math.
+
 ### Create Secret Key
 
 - TODO

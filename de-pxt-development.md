@@ -75,6 +75,8 @@ bc95.setServer("13.93.47.253", 9090)
 > Nachdem ein Programm erstellt wurde, kann dieses heruntergeladen werden und muss dann erneut auf 
 > das USB Laufwerk `MINI` kopiert werden.
 
+> Achtung! PXT hat keine Unterstützung für Fliesskommazahlen!
+
 ### Geheimen Schlüssel erzeugen
 
 - TODO

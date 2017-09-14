@@ -134,6 +134,16 @@ int main() {
     uBit.init();
     uBit.serial.baud(115200);
 
+    while(true) {
+        uBit.io.P2.setDigitalValue(0);
+        uBit.io.P2.setDigitalValue(1);
+        wait_us(5);
+        uBit.io.P2.setDigitalValue(0);
+        int duration = uBit.io.P2.getAnalogPeriodUs()
+        uBit.io.P2.setDigitalValue(0);
+        uBit.serial.send(ManagedString(uBit.io.P2.getDigitalValue())+"\r\n");
+    }
+    
     // set up the serial connection to the NB-IoT modem (BC95)
     uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
     uBit.serial.baud(9600);
