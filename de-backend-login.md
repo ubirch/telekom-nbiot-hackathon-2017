@@ -5,9 +5,15 @@ Zuerst die ID des Calliope mini herausfinden, dazu <a href="https://raw.githubus
 Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. id:AB12CD34).
 
 Auf <a href="http://ubirch.demo.ubirch.com">uBirchDemo</a> gehen und über 'Mit Google einloggen' anmelden.
+
+![Login](files/login-ubirchdemo.png)
+
 Nun bitte die erhaltenen Zugangsdaten eingeben.
 
 Jetzt kann der device angelegt werden, hierfür muss nur die ID des Calliope mini und ein Name für das Gerät eingegeben werden.
+
+![AddDevice](files/show-add-device.png)
+
 
 Nach dem Wechsel auf den Reiter 'devinfo' kann man den Abruf der vom Gerät gesendeten Daten einrichten.
 Hierzu gibt es 2 Möglichkeiten:
