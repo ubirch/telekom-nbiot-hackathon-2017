@@ -5,7 +5,7 @@
 1. HOWTO
     1. [GERMAN](#german)
     2. [ENGLISH](#english)
-3. [Wiring/Verkablung](#wiring)
+3. [Wiring / Verkabelung](#wiring)
 4. [Calliope mini Pinout](#pinout-calliope-mini)
 
 # GERMAN
