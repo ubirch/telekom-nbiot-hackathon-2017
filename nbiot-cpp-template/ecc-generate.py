@@ -65,8 +65,8 @@ pubKeyInfo = {
     "validNotBefore": created,
     "validNotAfter": validNotAfter
 }
-jsonPayload = json.dumps(pubKeyInfo, sort_keys=True, separators=(',', ':'), encoding="UTF-8")
-signedPubKeyInfo = privateKey.sign(msg=jsonPayload, encoding="base64").decode('latin1')
+jsonPubKeyInfo = json.dumps(pubKeyInfo, sort_keys=True, separators=(',', ':'), encoding="UTF-8")
+signedPubKeyInfo = privateKey.sign(msg=jsonPubKeyInfo, encoding="base64").decode('latin1')
 
 payload = {
     "pubKeyInfo": pubKeyInfo,
@@ -74,6 +74,17 @@ payload = {
     # "previousPubKeySignature": None
 }
 
-print json.dumps(payload, separators=(',', ':'))
-r = requests.get("http://key.demo.ubirch.com:8095", data=payload)
+print jsonPubKeyInfo
+try:
+    publicKey.verify(sig=signedPubKeyInfo, msg=jsonPubKeyInfo, encoding="base64")
+except ed25519.BadSignatureError:
+    print "VERIFICATION FAILED"
+    exit()
+
+# encode final payload
+jsonPayload =json.dumps(payload, sort_keys=True, separators=(',', ':'), encoding="UTF-8")
+print jsonPayload
+
+r = requests.post("http://key.demo.ubirch.com:8095/api/keyService/v1/pubkey",
+                  data=jsonPayload, headers={'content-type': 'application/json'})
 print r.text
