@@ -2,6 +2,12 @@
 
 # Telekom NB-IoT Hackathon 2017
 
+1. HOWTO
+    1. [GERMAN](#german)
+    2. [ENGLISH](#english)
+3. [Wiring/Verkablung](#wiring)
+4. [Calliope mini Pinout](#pinout-calliope-mini)
+
 # GERMAN
 Dieses Repository enthält Anleitungen und Beispiele, wie mit dem [Calliope mini](https://calliope.cc) und dem [NB-IoT
 Modul](http://www.quectel.com/product/bc95.htm) programmiert und gearbeitet werden kann.
