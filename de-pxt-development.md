@@ -136,7 +136,7 @@ HOST=https://api.ubirch.demo.ubirch.com
 curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
 
 ```
-Bitte Beachten: Die Detailinformationen zu HOST und TOKEN befinden sich im Reiter 'Dev Info's / Entwickler Infos' auf der Detailseite der angelegten Gerätes.
+**Bitte Beachten:** Die Detailinformationen zu HOST und TOKEN befinden sich im Reiter 'Dev Info's / Entwickler Infos' auf der Detailseite der angelegten Gerätes.
 
 wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
 ![DeviceID](files/show-deviceid.png)
