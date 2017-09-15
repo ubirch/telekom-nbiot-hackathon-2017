@@ -129,13 +129,14 @@ DEVICEID=$DEVICE_ID
 
 TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
 
-HOST=http://api.ubirch.demo.ubirch.com:8080
+HOST=https://api.ubirch.demo.ubirch.com
 
 #last 10 datapoints
 
 curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
 
 ```
+Bitte Beachten: Die Detailinformationen zu HOST und TOKEN befinden sich im Reiter 'Dev Info's / Entwickler Infos' auf der Detailseite der angelegten Gerätes.
 
 wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
 ![DeviceID](files/show-deviceid.png)
@@ -150,7 +151,7 @@ Vorraussetzung sind die Python-Module ed25519 und requests.
 Diese installiert man mit Hilfe von <a href="https://pip.pypa.io/en/stable/installing/">pip</a>, einem Paketmanager für Python mit dem Kommando:
 
 ```
-pip install ed 25519 requests
+pip install ed25519 requests
 
 ```
 
