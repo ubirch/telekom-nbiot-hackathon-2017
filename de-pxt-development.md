@@ -105,7 +105,10 @@ Um die Daten kontinuierlich zu empfangen kann die Streaming API verwendet werden
 Benötigt wird <a href="https://mosquitto.org/download/">Mosquitto</a> um auf den MQTT-Server zugreifen zu können.
 Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden. Dazu gibt man: 
 
->mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P $PASSWORD`
+```
+mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P $PASSWORD`
+
+```
 
 ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
 
@@ -120,17 +123,21 @@ a
 Vorraussetzung ist <a href="https://curl.haxx.se/download.html">Curl</a>.
 
 Der Abruf der Daten erfolgt durch den Aufruf:
->DEVICEID=$DEVICE_ID
->
->TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
->HOST=http://api.ubirch.demo.ubirch.com:8080
->
->#last 10 datapoints
->
->curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
+
+```
+DEVICEID=$DEVICE_ID
+
+TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
+
+HOST=http://api.ubirch.demo.ubirch.com:8080
+
+#last 10 datapoints
+
+curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
 
 wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
 
+```
 ![DeviceID](files/show-deviceid.png)
 
 ### Geheimen Schlüssel erzeugen (optional)
@@ -142,7 +149,10 @@ Vorraussetzung sind die Python-Module ed25519 und requests.
 
 Diese installiert man mit Hilfe von <a href="https://pip.pypa.io/en/stable/installing/">pip</a>, einem Paketmanager für Python mit dem Kommando:
 
->pip install ed 25519 requests
+```
+pip install ed 25519 requests
+
+```
 
 # Offline Alternative
 
