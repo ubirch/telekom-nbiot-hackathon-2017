@@ -46,7 +46,7 @@ print
 
 deviceId = ""
 while True:
-    deviceId = raw_input("Enter device ID: ")
+    deviceId = raw_input("Enter Calliope mini ID: ")
     if (len(deviceId) == 8 and int(deviceId, 16) != 0):
         break
     else:
