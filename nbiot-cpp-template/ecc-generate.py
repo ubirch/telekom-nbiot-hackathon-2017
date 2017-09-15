@@ -20,30 +20,6 @@ privateKey, publicKey = ed25519.create_keypair(entropy=os.urandom)
 publicKeyEncoded = publicKey.to_ascii(encoding="hex").decode('latin1')
 privateKeyEncoded = privateKey.to_ascii(encoding="hex").decode('latin1')
 
-print
-print "COPY THE PRIVATE KEY INTO YOUR PXT SCRIPT:"
-print("public key : '" + publicKeyEncoded + "'")
-print("private key: '" + privateKeyEncoded + publicKeyEncoded + "'")
-bytes = re.findall("[0-9a-f]{2}", privateKeyEncoded + publicKeyEncoded)
-
-print
-print "COPY THE FOLLOWING LINES INTO YOUR C++ CODE:"
-print "/* ==== ECC KEYS ================= */"
-print "static unsigned char vrfyKey[crypto_sign_PUBLICKEYBYTES] = {"
-for n in range(32, 64, 16):
-    for b in range(16):
-        sys.stdout.write("0x" + bytes[n + b] + ", ")
-    print
-print "};"
-print "static unsigned char signKey[crypto_sign_SECRETKEYBYTES] = {"
-for n in range(0, 64, 16):
-    for b in range(16):
-        sys.stdout.write("0x" + bytes[n + b] + ", ")
-    print
-print "};"
-print "/* ==== ECC KEYS ================= */"
-print
-
 deviceId = ""
 while True:
     deviceId = raw_input("Enter Calliope mini ID: ")
@@ -85,8 +61,34 @@ except ed25519.BadSignatureError:
 
 # encode final payload
 jsonPayload =json.dumps(payload, sort_keys=True, separators=(',', ':'), encoding="UTF-8")
-print jsonPayload
+# print jsonPayload
 
-r = requests.post("http://key.demo.ubirch.com:8095/api/keyService/v1/pubkey",
-                  data=jsonPayload, headers={'content-type': 'application/json'})
-print r.text
+try:
+    r = requests.post("http://key.demo.ubirch.com:8095/api/keyService/v1/pubkey",
+                      data=jsonPayload, headers={'content-type': 'application/json'})
+    print r.text
+    print
+    print "COPY THE PRIVATE KEY INTO YOUR PXT SCRIPT:"
+    print("public key : '" + publicKeyEncoded + "'")
+    print("private key: '" + privateKeyEncoded + publicKeyEncoded + "'")
+    bytes = re.findall("[0-9a-f]{2}", privateKeyEncoded + publicKeyEncoded)
+
+    print
+    print "COPY THE FOLLOWING LINES INTO YOUR C++ CODE:"
+    print "/* ==== ECC KEYS ================= */"
+    print "static unsigned char vrfyKey[crypto_sign_PUBLICKEYBYTES] = {"
+    for n in range(32, 64, 16):
+        for b in range(16):
+            sys.stdout.write("0x" + bytes[n + b] + ", ")
+        print
+    print "};"
+    print "static unsigned char signKey[crypto_sign_SECRETKEYBYTES] = {"
+    for n in range(0, 64, 16):
+        for b in range(16):
+            sys.stdout.write("0x" + bytes[n + b] + ", ")
+        print
+    print "};"
+    print "/* ==== ECC KEYS ================= */"
+    print
+except:
+    print "SUBMIT FAILED!"
