@@ -1,4 +1,4 @@
-### Gerät am Backend anmelden
+``### Gerät am Backend anmelden
 
 Zuerst die ID des Calliope mini herausfinden, dazu <a href="https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex">deviceinfo.hex</a> auf den Calliope mini spielen. 
 
@@ -24,7 +24,7 @@ Benötigt wird <a href="https://mosquitto.org/download/">Mosquitto</a> um auf de
 Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden. Dazu gibt man: 
 
 ```
-mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P SmartPublicLife2017`
+mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P $PASSWORD`
 ```
 
 ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
