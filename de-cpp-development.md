@@ -43,6 +43,12 @@ Beispiel (MacOS):
 ```
 screen /dev/cu.usbmodem14232 115200
 ```
+oder alternativ das Python serial terminal
+
+```
+pip install pyserial
+mininterm.py /dev/cu.usbmodem14232 115200
+```
 
 Die Einstellungen für die serielle Konsole sind `115200 8N1`.
 
