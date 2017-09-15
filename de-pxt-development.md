@@ -82,17 +82,19 @@ bc95.setServer("13.93.47.253", 9090)
 
 ### Gerät am Backend anmelden
 
-Zuerst die ID des Calliope mini herausfinden, dazu <a href="https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex">deviceinfo.hex</a> auf den Calliope mini spielen. 
+Zuerst die ID des Calliope mini herausfinden, dazu 
+[deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex) auf den 
+Calliope mini spielen. 
 
-Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. id:AB12CD34).
-
-Auf <a href="http://ubirch.demo.ubirch.com">uBirchDemo</a> gehen und über 'Mit Google einloggen' anmelden.
+Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. `id:AB12CD34`).
+Danach bitte die Backend-Webseite [ubirch Demo](http://ubirch.demo.ubirch.com) aufrufen anmeldem/registrieren.
 
 ![Login](files/login-ubirchdemo.png)
 
 Nun bitte die erhaltenen Zugangsdaten eingeben.
 
-Jetzt kann der device angelegt werden, hierfür muss nur die ID des Calliope mini und ein Name für das Gerät eingegeben werden.
+Jetzt kann der device angelegt werden, hierfür muss nur die ID des Calliope mini und ein Name für das Gerät eingegeben
+werden.
 
 ![AddDevice](files/show-add-device.png)
 
@@ -102,12 +104,11 @@ Hierzu gibt es 2 Möglichkeiten:
 #### 1. Streaming API
 
 Um die Daten kontinuierlich zu empfangen kann die Streaming API verwendet werden.
-Benötigt wird <a href="https://mosquitto.org/download/">Mosquitto</a> um auf den MQTT-Server zugreifen zu können.
-Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden. Dazu gibt man: 
+Benötigt wird [Mosquitto](https://mosquitto.org/download/) um auf den MQTT-Server zugreifen zu können.
+Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden: 
 
 ```
-mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t “ubirch-demo/ubirch/devices/$DEVICE_ID/processed” -u telekom -P $PASSWORD`
-
+mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t "ubirch-demo/ubirch/devices/$DEVICE_ID/processed" -u telekom -P $PASSWORD`
 ```
 
 ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
@@ -118,41 +119,39 @@ Die vom Calliope mini gesendeten Daten werden ausgegeben.
 
 ![Streaming_Result](files/streaming-result.png)
 
-a
 #### 2. Query API
-Vorraussetzung ist <a href="https://curl.haxx.se/download.html">Curl</a>.
+
+Vorraussetzung ist [curl](https://curl.haxx.se/download.html).
 
 Der Abruf der Daten erfolgt durch den Aufruf:
 
 ```
 DEVICEID=$DEVICE_ID
-
 TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
-
 HOST=https://api.ubirch.demo.ubirch.com
 
 #last 10 datapoints
-
 curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
-
 ```
-**Bitte Beachten:** Die Detailinformationen zu HOST und TOKEN befinden sich im Reiter 'Dev Info's / Entwickler Infos' auf der Detailseite der angelegten Gerätes.
-
-wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
-![DeviceID](files/show-deviceid.png)
+> **Bitte Beachten:** Die Detailinformationen zu `HOST` und `TOKEN` befinden sich im Reiter *Dev Info's / Entwickler Infos* 
+> auf der Detailseite der angelegten Gerätes.
+> wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
+> ![DeviceID](files/show-deviceid.png)
 
 ### Geheimen Schlüssel erzeugen (optional)
 Optional können die Datenpakete des Calliope mini mit einem ECC Schlüssel signiert werden.
 
-Dazu kann mit dem script <a href="https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/nbiot-cpp-template/ecc-generate.py">ecc-generate.py</a> auf der Kommandozeile ein ECC Schlüssel erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` im Programm eingegeben werden. Das Script registriert auch automatisch den öffentlichen Schlüssel beim backen.
+Dazu kann mit dem script [ecc-generate.py](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/nbiot-cpp-template/ecc-generate.py) 
+auf der Kommandozeile ein ECC Schlüssel erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` 
+im Programm eingegeben werden. Das Script registriert auch automatisch den öffentlichen Schlüssel beim backend.
 
 Vorraussetzung sind die Python-Module ed25519 und requests.
 
-Diese installiert man mit Hilfe von <a href="https://pip.pypa.io/en/stable/installing/">pip</a>, einem Paketmanager für Python mit dem Kommando:
+Diese installiert man mit Hilfe von [pip](https://pip.pypa.io/en/stable/installing/), einem Paketmanager 
+für Python mit dem Kommando:
 
 ```
 pip install ed25519 requests
-
 ```
 
 # Offline Alternative
