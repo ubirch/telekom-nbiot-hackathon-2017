@@ -136,9 +136,13 @@ wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich 
 ### Geheimen Schlüssel erzeugen (optional)
 Optional können die Datenpakete des Calliope mini mit einem ECC Schlüssel signiert werden.
 
-Dazu kann mit dem script [ecc-generate.py](nbiot-cpp-template/ecc-generate.py) auf der Kommandozeile ein ECC Schlüssel
-erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` im Programm eingegeben werden. Das Script
-registriert auch automatisch den öffentlichen Schlüssel beim backen.
+Dazu kann mit dem script <a href="https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/nbiot-cpp-template/ecc-generate.py">ecc-generate.py</a> auf der Kommandozeile ein ECC Schlüssel erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` im Programm eingegeben werden. Das Script registriert auch automatisch den öffentlichen Schlüssel beim backen.
+
+Vorraussetzung sind die Python-Module ed25519 und requests.
+
+Diese installiert man mit Hilfe von <a href="https://pip.pypa.io/en/stable/installing/">pip</a>, einem Paketmanager für Python mit dem Kommando:
+
+>pip install ed 25519 requests
 
 # Offline Alternative
 
