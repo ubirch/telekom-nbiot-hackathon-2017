@@ -20,7 +20,7 @@ compiler suite for ARM Cortex-M processors.
 To install the development environment, follow these steps:
 
 1. [clone this repository](https://github.com/telekom-nbiot-hackathon-2017): `git clone https://github.com/ubirch/telekom-nbiot-hackathon-2017`
-2. [install yotta](http://docs.yottabuild.org/#installing)
+2. [install yotta](http://docs.yottabuild.org/#installing) (For MacOSX: please install via Terminal and do not use the yotta.app!)
 3. change into the directory [`nbiot-cpp-template`](nbiot-cpp-template) and run `yt update` on the command line 
 4. use `yt build` to compile
 5. copy the resulting `build/calliope-mini-classic-gcc/source/calliope-project-template-combined.hex` file to the `MINI` USB drive

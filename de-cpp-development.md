@@ -20,7 +20,7 @@ die Installation eines Compilers, sowie des Entwicklungswerkzeugs
 Zur Installation dieser Anleitung folgen:
 
 1. [dieses Repository](https://github.com/telekom-nbiot-hackathon-2017) clonen: `git clone https://github.com/ubirch/telekom-nbiot-hackathon-2017`
-2. [yotta installieren](http://docs.yottabuild.org/#installing) (Englisch!)
+2. [yotta installieren](http://docs.yottabuild.org/#installing) (Englisch! Für MacOSX bitte über Terminal installieren und nicht yotta.app nutzen)
 3. in das Verzeichnis des Beispielprojekts [`nbiot-cpp-template`](nbiot-cpp-template) wechseln und `yt update` ausführen 
 4. zum compilieren `yt build` ausführen
 5. die Datei `build/calliope-mini-classic-gcc/source/calliope-project-template-combined.hex` auf das USB Lauferk `MINI` kopieren
