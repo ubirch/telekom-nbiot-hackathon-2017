@@ -135,9 +135,9 @@ HOST=http://api.ubirch.demo.ubirch.com:8080
 
 curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
 
-wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
-
 ```
+
+wobei $DEVICE_ID durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
 ![DeviceID](files/show-deviceid.png)
 
 ### Geheimen Schlüssel erzeugen (optional)
