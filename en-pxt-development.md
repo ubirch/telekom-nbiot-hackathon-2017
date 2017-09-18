@@ -75,7 +75,7 @@ bc95.attach(
 bc95.setServer("13.93.47.253", 9090)
 ```
 
-> Remember to download the program again, after changing code and copy the resulting file onto the USB drive `MINI`. 
+> After changing code: remember to download the program again and copy the resulting file onto the USB drive `MINI`. 
 
 > Attention! Be aware that PXT does not support floating point math.
 
@@ -83,14 +83,70 @@ bc95.setServer("13.93.47.253", 9090)
 
 Identify the Calliope mini: download [deviceinfo.hex](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/deviceinfo.hex)
 and copy it onto the Calliope mini. The ID will be shown as a HEX string on the display (i.e. `id:AB12CD34`).
+Please go to the Backend-website [ubirch Demo](https://ubirch.demo.ubirch.com).
 
-### Create Secret Key
+![Login](files/login-ubirchdemo.png)
+
+Please enter the login data provided.
+
+Now you can add the device, you just have to enter the ID of the Calliope mini and a name for the device.
+
+![AddDevice](files/show-add-device.png)
+
+After switching to the tap 'devinfo' you can now do the setup to receive the data send from your Calliope mini.
+There are 2 possibilities:
+
+#### 1. Streaming API
+
+To receive data continuously you can use the Streaming API.
+You'll need [Mosquitto](https://mosquitto.org/download/) to access the MQTT-server.
+To stream the data from your Calliope mini you have to subscribe the topic:
+
+```
+mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t "ubirch-demo/ubirch/devices/$DEVICE_ID/processed" -u telekom -P SmartPublicLife2017`
+```
+
+Please replace `$DEVICE_ID` with the deviceID of your Calliope mini. You find it on the tab 'additional settings'. With this login you'll have read-only access to the MQTT-server.
+
+![DeviceID](files/show-deviceid.png)
+
+The data received will now be displayed continuously.
+
+![Streaming_Result](files/streaming-result.png)
+
+#### 2. Query API
+
+Requirement for the Query API is [curl](https://curl.haxx.se/download.html).
+
+To get the data send, please enter the following commands:
+
+```
+DEVICEID=$DEVICE_ID
+TOKEN=ya29.GlvGBNBxm5fa84UTyEi23JYSZ3E-OCOY8wVRAkmFaDwMfzCYtlc1TXuxBhnHLCNtIW26Z2yQGzO3EkPRsAIeWUeUEnzAfopy2f_FluXYl5Yp7OZyJjOnzEsxFmRk
+HOST=https://api.ubirch.demo.ubirch.com
+
+#last 10 datapoints
+curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$DEVICEID/data/history/0/10
+```
+> **Important:** Details for `HOST` and `TOKEN` can be found on the tab *dev info* on the detail page for your device.
+> Please replace `$DEVICE_ID` with the deviceID of your Calliope mini. You find it on the tab 'additional settings'.
+> ![DeviceID](files/show-deviceid.png)
+
+### Create Secret Key (optional)
+We recommend signing the data of your Calliope with an ECC key.
 
 Use the script [ecc-generate.py](nbiot-cpp-template/ecc-generate.py) to create a new ECC key. The script requires the
 device ID and will automatically register the public key with the backend. Copy
 the private key string and setup your PXT program using `set sign key`.
 
-*More information can be found on the [Backend Registration](de-backend-login.md) page.*
+The python-modules ed25519 and requests are required.
+
+You can install them using [pip](https://pip.pypa.io/en/stable/installing/), a packetmanager 
+for Python, by entering the following command:
+
+```
+pip install ed25519 requests
+```
 
 # Offline Alternative
 

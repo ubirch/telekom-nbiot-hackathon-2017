@@ -87,7 +87,7 @@ Zuerst die ID des Calliope mini herausfinden, dazu
 Calliope mini spielen. 
 
 Auf dem Display wird dann die ID als eine HEX Zeichenkette ausgegeben (z.B. `id:AB12CD34`).
-Danach bitte die Backend-Webseite [ubirch Demo](http://ubirch.demo.ubirch.com) aufrufen anmeldem/registrieren.
+Danach bitte die Backend-Webseite [ubirch Demo](https://ubirch.demo.ubirch.com) aufrufen.
 
 ![Login](files/login-ubirchdemo.png)
 
@@ -108,10 +108,10 @@ Benötigt wird [Mosquitto](https://mosquitto.org/download/) um auf den MQTT-Serv
 Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden: 
 
 ```
-mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t "ubirch-demo/ubirch/devices/$DEVICE_ID/processed" -u telekom -P $PASSWORD`
+mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t "ubirch-demo/ubirch/devices/$DEVICE_ID/processed" -u telekom -P SmartPublicLife2017`
 ```
 
-ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'.
+ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'. Mit dieser Anmeldung sind nur lesende Zugriffe möglich.
 
 ![DeviceID](files/show-deviceid.png)
 
@@ -139,7 +139,7 @@ curl -XGET -H 'Authorization: Bearer $TOKEN' $HOST/api/avatarService/v1/device/$
 > ![DeviceID](files/show-deviceid.png)
 
 ### Geheimen Schlüssel erzeugen (optional)
-Optional können die Datenpakete des Calliope mini mit einem ECC Schlüssel signiert werden.
+Wir empfehlen die Datenpakete des Calliope mini mit einem ECC Schlüssel zu signieren.
 
 Dazu kann mit dem script [ecc-generate.py](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/nbiot-cpp-template/ecc-generate.py) 
 auf der Kommandozeile ein ECC Schlüssel erzeugt werden. Der private Schlüssel muss dann mit `setze Signierschlüssel` 
