@@ -107,7 +107,7 @@ Um die Daten kontinuierlich zu empfangen kann die Streaming API verwendet werden
 Benötigt wird [Mosquitto](https://mosquitto.org/download/) um auf den MQTT-Server zugreifen zu können.
 Hierzu werden im Reiter 'dev info' folgende Einträge bei Streaming API benötigt:
 
-![Streaming API](files/Straming_API_input.png)
+![Streaming API](files/Streaming_API_input.png)
 
 Anschließend kann das 'Mosquitto Script Example:' kopiert und im Terminal ausgeführt werden. Damit wird das Topic subscribed auf welchem anschließend die Daten von dem angelegten Calliope mini gestreamt werden: 
 
