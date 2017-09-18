@@ -105,13 +105,17 @@ Hierzu gibt es 2 Möglichkeiten:
 
 Um die Daten kontinuierlich zu empfangen kann die Streaming API verwendet werden.
 Benötigt wird [Mosquitto](https://mosquitto.org/download/) um auf den MQTT-Server zugreifen zu können.
-Um die Daten von dem angelegten Calliope mini streamen zu können, muss nun das Topic subscribed werden: 
+Hierzu werden im Reiter 'dev info' folgende Einträge bei Streaming API benötigt:
+
+![Streaming API](files/Straming_API_input.png)
+
+Anschließend kann das 'Mosquitto Script Example:' kopiert und im Terminal ausgeführt werden. Damit wird das Topic subscribed auf welchem anschließend die Daten von dem angelegten Calliope mini gestreamt werden: 
 
 ```
 mosquitto_sub -h mq.demo.ubirch.com -p 1883 -t "ubirch-demo/ubirch/devices/$DEVICE_ID/processed" -u telekom -P SmartPublicLife2017`
 ```
 
-ein, wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'. Mit dieser Anmeldung sind nur lesende Zugriffe möglich.
+wobei `$DEVICE_ID` durch die DeviceID des Geräts ersetzt wird. Diese findet sich auf dem Reiter 'additional settings'. Mit dieser Anmeldung sind nur lesende Zugriffe möglich.
 
 ![DeviceID](files/show-deviceid.png)
 
