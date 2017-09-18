@@ -29,7 +29,7 @@ backend from PXT, you need to add a package to the online editor:
 
 ## Development
 
-To start, [download the example project](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/en-ubirch-NB-IoT-Messaging.hex)
+To start, [download the example project](https://raw.githubusercontent.com/ubirch/telekom-nbiot-hackathon-2017/master/ubirch-NB-IoT-Messaging.hex)
 (right click and download as ...) and simply drag and drop it onto the online editor window:
 
 >PXT works asynchronously, so you should not press the buttons in rapid succession as it will
