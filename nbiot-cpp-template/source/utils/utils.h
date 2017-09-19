@@ -43,6 +43,14 @@ ManagedString sign(ManagedString &message, const unsigned char *signKey = nullpt
 ManagedString stringToHex(ManagedString &input);
 
 /**
+ * Convert the input into a hex encoded string.
+ * @param input the input
+ * @param len the length of input
+ * @return the hex encoded string
+ */
+ManagedString stringToHex(const char* input, uint16_t len);
+
+/**
  * Dump an array in hex-dump style with a prefix.
  * @param prefix the prefix prepended to each line
  * @param b the byte array to dump
@@ -56,5 +64,16 @@ void hexdump(const char *prefix, const uint8_t *b, size_t size);
  * @param size the size of the byte array
  */
 void hexprint(const uint8_t  *b, size_t size);
+
+/**
+ * Convert the hexchar array input to a byte array
+ * Little to no input sanitation
+ * 
+ * @param output pointer to the target buffer
+ * @param input the string to convert
+ * @return the length of the resulting byte array in output
+ */
+uint8_t hexarrayToByte(uint8_t* output, ManagedString input);
+
 
 #endif //NBIOT_CPP_TEMPLATE_UTILS_H

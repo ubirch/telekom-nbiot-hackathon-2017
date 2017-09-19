@@ -108,6 +108,16 @@ ManagedString stringToHex(ManagedString &input) {
     return r;
 }
 
+ManagedString stringToHex(const char* input, uint16_t len) {
+    const char l[17] = "0123456789ABCDEF";
+    ManagedString r;
+    for (int i = 0; i < len; i++) {
+        char c = input[i];
+        r = r + ManagedString(l[c >> 4]) + ManagedString(l[c & 0x0f]);
+    }
+    return r;
+}
+
 void hexdump(const char *prefix, const uint8_t *b, size_t size) {
     for (unsigned int i = 0; i < size; i += 16) {
         if (prefix && strlen(prefix) > 0) printf("%s %06x: ", prefix, i);
@@ -126,4 +136,42 @@ void hexdump(const char *prefix, const uint8_t *b, size_t size) {
 void hexprint(const uint8_t *b, size_t size) {
     for (unsigned int i = 0; i < size; i++) printf("%02x", b[i]);
     printf("\r\n");
+}
+
+
+static uint8_t hexToUint8(char ch) {
+    // service digits 0 - 9
+    if ( ( ch >= '0' ) && ( ch <= '9' ) ) {
+        return ch - '0';
+    }
+    // and then lowercase a - f
+    else if ( ( ch >= 'a' ) && ( ch <= 'f' ) ) 
+    {
+        return ch - 'a' + 10;
+    }
+    // and uppercase A - F
+    else if ( ( ch >= 'A' ) && ( ch <= 'F' ) ) 
+    {
+        return ch - 'A' + 10;
+    }
+    return 0xFF; // error
+}
+
+// like no input sanitation..., output needs to be at least 20bytes
+uint8_t hexarrayToByte(uint8_t* output, ManagedString input) {
+    int charPos = 0;
+    int bytePos = 0;
+    while (charPos < input.length()) {
+        uint8_t firstNibble = hexToUint8(input.charAt(charPos));
+        charPos++;
+        uint8_t secondNibble = hexToUint8(input.charAt(charPos));
+        charPos++;
+        if ((firstNibble != 0xFF) && (secondNibble != 0xFF)) {
+            output[bytePos] = firstNibble << 4 | secondNibble;
+        } else {
+            return 0;
+        }
+        bytePos++;
+    }
+    return bytePos;
 }
