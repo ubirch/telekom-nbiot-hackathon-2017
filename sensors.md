@@ -113,3 +113,7 @@
 
 > untested
 
+### [GPS Modul](https://www.seeedstudio.com/Xadow-GPS-v2-p-2557.html) (Xadow GPS v2 with I2C)
+
+> untested
+
