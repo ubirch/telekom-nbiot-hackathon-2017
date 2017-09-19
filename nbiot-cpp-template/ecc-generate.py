@@ -64,7 +64,7 @@ jsonPayload =json.dumps(payload, sort_keys=True, separators=(',', ':'), encoding
 # print jsonPayload
 
 try:
-    r = requests.post("http://key.demo.ubirch.com:8095/api/keyService/v1/pubkey",
+    r = requests.post("https://key.demo.ubirch.com/api/keyService/v1/pubkey",
                       data=jsonPayload, headers={'content-type': 'application/json'})
     print r.text
     print
