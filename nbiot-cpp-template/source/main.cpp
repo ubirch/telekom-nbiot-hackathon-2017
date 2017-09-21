@@ -89,10 +89,11 @@ ManagedString expectOK(ManagedString command) {
 
 // initialize the BC95 NB-IoT Modem, checks the firmware and updates mandatory settings
 bool initializeModem() {
-    if (!(expectOK("+CGMR") == "V100R100C10B656")) {
-        uBit.display.scroll("BC95 wrong firmware");
-        return false;
-    }
+// removed, as it blocks initializion on newer hardware
+//    if (!(expectOK("+CGMR") == "V100R100C10B656")) {
+//        uBit.display.scroll("BC95 wrong firmware");
+//        return false;
+//    }
     // setup some basics
     expectOK("+NCONFIG=AUTOCONNECT,TRUE");
     expectOK("+NCONFIG=CR_0354_0338_SCRAMBLING,TRUE");
