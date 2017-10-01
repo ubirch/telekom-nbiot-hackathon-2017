@@ -58,7 +58,7 @@ file(GLOB_RECURSE NRF51_SDK_SRC
 add_library(nrf51sdk ${NRF51_SDK_SRC})
 include_directories(${NRF51_SDK_INC})
 
-include(yotta_modules/ubirch-nacl-cm0/lib.cmake)
+include(yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
 
 add_executable(main
         source/main.cpp
