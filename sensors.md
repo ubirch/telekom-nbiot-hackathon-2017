@@ -76,7 +76,7 @@
 
 ### [Grove - Light Sensor](http://wiki.seeed.cc/Grove-Light_Sensor/) (analog, add-on)
 
-- Typescript: [grove-ultrasonic-ranger.ts](typescript/grove-ultrasonic-ranger.ts) (use `pins.analogReadPin(AnalogPin.XX)`)
+- Typescript: (no driver, use `pins.analogReadPin(AnalogPin.XX)`)
 - C++: (use `uBit.io.XX.getAnalogValue()`)
 
 ### [Grove - IR Distance Interruptor v1.2](http://wiki.seeed.cc/Grove-IR_Distance_Interrupter_v1.2/) (digital, add-on)
