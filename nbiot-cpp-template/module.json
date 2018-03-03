@@ -4,8 +4,8 @@
   "description": "Calliope Project Template",
   "license": "Apache 2.0",
   "dependencies": {
-    "microbit": "calliope-mini/microbit#v2.0.0-rc8-calliope-1.0.3",
-    "ubirch-mbed-nacl-cm0": "ubirch/ubirch-mbed-nacl-cm0#master"
+    "microbit": "calliope-mini/microbit#v2.0.0-rc8-calliope-1.0.4",
+    "ubirch-protocol": "ubirch/ubirch-protocol#master"
   },
   "targetDependencies": {},
   "bin": "./source"

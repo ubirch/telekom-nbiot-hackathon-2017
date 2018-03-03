@@ -3,6 +3,7 @@
         "bluetooth": {
             "enabled": 0
         },
-        "debug": 1
+        "debug": 1,
+        "heap_debug": 0
     }
 }

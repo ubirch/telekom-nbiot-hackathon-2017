@@ -24,78 +24,63 @@
  */
 
 #include <MicroBit.h>
-#include <nacl/armnacl.h>
+#include <ubirch/ubirch_protocol.h>
+#include <ubirch/ubirch_ed25519.h>
+#include <ubirch/digest/sha512.h>
 #include "utils.h"
 
+static unsigned char prev_sig[UBIRCH_PROTOCOL_SIGN_SIZE] = {};
 
-// [0x00|0x01] + 0xCE + [4 byte id] + [0xD9|0xDA] + [1|2 byte length] + [64 byte signature] + [message]
-#define PACKET_HEADER_SIZE (1 + 1 + 4 + 3)
-#define SIGNATURE_SIZE crypto_sign_BYTES
-#define MAX_MESSAGE_SIZE (512 - SIGNATURE_SIZE - 8)
+inline int msgpack_string_write(void *data, const char *buf, size_t len) {
+    msgpack_sbuffer *sbuf = (msgpack_sbuffer *) data;
+    
+    // if we have data in sbuf, use the stack to exchange and increase the buffer
+    // this is neccessary to avoid heap fragmentation
+    char tmp[sbuf->size] = {};
+    if (sbuf->data) {
+        memcpy(tmp, sbuf->data, sbuf->size);
+        free(sbuf->data);
+    }
 
-ManagedString sign(ManagedString &message, const unsigned char *signingKey) {
-    const unsigned int totalMessageLength = (!signingKey ? 0 : crypto_sign_BYTES) + (unsigned int) message.length();
-    const unsigned int packetSize = PACKET_HEADER_SIZE + totalMessageLength;
+    sbuf->data = (char *) malloc(sbuf->size + len);
+    memcpy(sbuf->data, tmp, sbuf->size);
+    memcpy(sbuf->data + sbuf->size, buf, len);
+    sbuf->size += len;
 
-    // allocate the string data buffer (has a max overhead of 2 byte due to msgpack encoding and terminating \0)
-    auto packet = (StringData *) malloc(4 + packetSize + 1);
-    // initialize the packet
-    packet->init();
-    packet->len = (uint16_t) packetSize;
+    return 0;
+}
 
-    // position in the msgpack data structure
-    uint16_t index = 0;
-
-    // write message header indicating signed or unsigned message
-    packet->data[index++] = (uint8_t) ((!signingKey ? 0x00 : 0x01) & 0b0111111);
-
-    // write the device id
-    packet->data[index++] = (uint8_t) 0xce;
-    // we need to store the device id big endian
+PacketBuffer sign(ManagedString message) {
     uint32_t _deviceId = __builtin_bswap32(microbit_serial_number());
-    memcpy(packet->data + index, (uint8_t *) &_deviceId, 4);
-    index += 4;
+    unsigned char hardwareSerial[UBIRCH_PROTOCOL_UUID_SIZE] = {};
+    for (int i = 0; i < 4; i++) memcpy(hardwareSerial + 4 * i, &_deviceId, 4);
 
-    // write message and handle different length
-    if (totalMessageLength < 256) {
-        // long messages have only two byte headers
-        packet->data[index++] = (uint8_t) 0xd9;
-        packet->data[index++] = (uint8_t) totalMessageLength;
-    } else if (totalMessageLength < MAX_MESSAGE_SIZE) {
-        // long messages have tree byte headers
-        packet->data[index++] = (uint8_t) 0xda;
-        uint16_t _signedMessageLength = __builtin_bswap16((uint16_t) totalMessageLength);
-        memcpy(packet->data + index, &_signedMessageLength, 2);
-        index += 2;
-    } else {
-        // we have a size limitation
-#ifndef NDEBUG
-        printf("encoding failed: message too long: %d > %d (max)\r\n", totalMessageLength, MAX_MESSAGE_SIZE);
-#endif
-        delete packet;
-        return ManagedString().leakData();
-    }
+    // initialize ubirch protocol
+    msgpack_sbuffer sbuf = {};
+    ubirch_protocol proto = {};
+    ubirch_protocol_init(&proto, proto_chained, 0x00,
+                         &sbuf, msgpack_string_write, ed25519_sign, hardwareSerial);
+    memcpy(proto.signature, prev_sig, UBIRCH_PROTOCOL_SIGN_SIZE);
 
-    if (signingKey) {
-        // do the actual signature generation and add it to the packet
-        crypto_uint16 smlen;
-        if (crypto_sign((unsigned char *) (packet->data + index), &smlen, (const unsigned char *) message.toCharArray(),
-                        (crypto_uint16) (message.length()), signingKey)) {
-#ifndef NDEBUG
-            printf("signing failed\r\n");
-#endif
-            delete packet;
-            return ManagedString();
-        }
-        printf("%d == %d\r\n", packet->len, index + smlen);
-        index += smlen;
-    } else {
-        memcpy(packet->data + index, message.toCharArray(), (size_t) message.length());
-        index += message.length();
-    }
-    packet->len = index;
+    // create a packer for ubirch protocol
+    msgpack_packer pk = {};
+    msgpack_packer_init(&pk, &proto, ubirch_protocol_write);
 
-    return ManagedString(packet);
+    ubirch_protocol_start(&proto, &pk);
+    msgpack_pack_raw(&pk, static_cast<size_t>(message.length()));
+    msgpack_pack_raw_body(&pk, message.toCharArray(), static_cast<size_t>(message.length()));
+    ubirch_protocol_finish(&proto, &pk);
+
+    // copy the last signature into our local buffer
+    memcpy(prev_sig, proto.signature, UBIRCH_PROTOCOL_SIGN_SIZE);
+
+    // hexdump("PKT", reinterpret_cast<const uint8_t *>(sbuf.data), sbuf.size);
+
+    // create a packetbuffer from the buffer and free sbuf
+    PacketBuffer buf(reinterpret_cast<uint8_t *>(sbuf.data), sbuf.size);
+    free(sbuf.data);
+
+    return buf;
 }
 
 ManagedString stringToHex(ManagedString &input) {

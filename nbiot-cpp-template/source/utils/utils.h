@@ -33,7 +33,7 @@
  * @param message the data to sign and package
  * @return a StringData object with the msgpack encoded and signed data
  */
-ManagedString sign(ManagedString &message, const unsigned char *signKey = nullptr);
+PacketBuffer sign(ManagedString message);
 
 /**
  * Convert the input into a hex encoded string.

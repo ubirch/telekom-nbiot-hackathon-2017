@@ -60,13 +60,47 @@ include_directories(${NRF51_SDK_INC})
 
 include(yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
 
+add_library(msgpack
+        yotta_modules/ubirch-mbed-msgpack/msgpack/fbuffer.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/object.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/pack.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/pack_define.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/pack_template.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/sbuffer.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/sysdep.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/unpack.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/unpack_define.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/unpack_template.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/version.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/vrefbuffer.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/zbuffer.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack/zone.h
+        yotta_modules/ubirch-mbed-msgpack/msgpack.h
+        yotta_modules/ubirch-mbed-msgpack/objectc.c
+        yotta_modules/ubirch-mbed-msgpack/unpack.c
+        yotta_modules/ubirch-mbed-msgpack/version.c
+        yotta_modules/ubirch-mbed-msgpack/vrefbuffer.c
+        )
+target_include_directories(msgpack PUBLIC yotta_modules/ubirch-mbed-msgpack)
+
+add_library(ubirch-protocol
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_ed25519.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.c
+        yotta_modules/ubirch-protocol/ubirch/digest/sha512.h
+        yotta_modules/ubirch-protocol/ubirch/digest/sha512.c
+        yotta_modules/ubirch-protocol/ubirch/digest/config.h)
+target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol)
+target_link_libraries(ubirch-protocol libnacl msgpack)
+
 add_executable(main
         source/main.cpp
         source/utils/utils.cpp
         source/utils/random.c
         # add more source files here, if needed
         )
-target_link_libraries(main microbit microbit-dal libnacl nrf51sdk)
+target_link_libraries(main microbit microbit-dal ubirch-protocol nrf51sdk)
 
 add_custom_target(compile
         COMMAND yt build

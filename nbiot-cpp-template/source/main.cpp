@@ -12,7 +12,7 @@
 
 #include <MicroBit.h>
 #include "utils/utils.h"
-#include "nacl/armnacl.h"
+#include <armnacl.h>
 
 // if you want to see AT commands and responses, uncomment this
 //#define SHOW_AT_COMMANDS
@@ -37,11 +37,11 @@
  */
 
 /* ==== ECC KEYS ================= */
-static unsigned char vrfyKey[crypto_sign_PUBLICKEYBYTES] = {
+unsigned char ed25519_public_key[crypto_sign_PUBLICKEYBYTES] = {
 0x7b, 0x60, 0x88, 0x2b, 0xee, 0x2e, 0x3f, 0x01, 0x79, 0x07, 0xce, 0x84, 0xe5, 0xe1, 0xc8, 0x7f,
 0x70, 0x57, 0x60, 0xfa, 0xc5, 0x87, 0x7f, 0xe0, 0xde, 0x7c, 0x58, 0x06, 0xc4, 0x69, 0x1f, 0x2f,
 };
-static unsigned char signKey[crypto_sign_SECRETKEYBYTES] = {
+unsigned char ed25519_secret_key[crypto_sign_SECRETKEYBYTES] = {
 0x3b, 0xc4, 0xb2, 0x49, 0x9d, 0x97, 0x50, 0x1a, 0xba, 0x63, 0xb0, 0xf6, 0x30, 0x8f, 0x8d, 0x91,
 0x3b, 0xcb, 0xdc, 0xed, 0xa8, 0x53, 0x26, 0x9d, 0x68, 0x75, 0xa0, 0x6a, 0x64, 0x32, 0xfa, 0xc7,
 0x7b, 0x60, 0x88, 0x2b, 0xee, 0x2e, 0x3f, 0x01, 0x79, 0x07, 0xce, 0x84, 0xe5, 0xe1, 0xc8, 0x7f,
@@ -89,11 +89,6 @@ ManagedString expectOK(ManagedString command) {
 
 // initialize the BC95 NB-IoT Modem, checks the firmware and updates mandatory settings
 bool initializeModem() {
-// removed, as it blocks initializion on newer hardware
-//    if (!(expectOK("+CGMR") == "V100R100C10B656")) {
-//        uBit.display.scroll("BC95 wrong firmware");
-//        return false;
-//    }
     // setup some basics
     expectOK("+NCONFIG=AUTOCONNECT,TRUE");
     expectOK("+NCONFIG=CR_0354_0338_SCRAMBLING,TRUE");
@@ -130,35 +125,48 @@ bool send(ManagedString &message, const char *server, int port) {
     return false;
 }
 
+void sendMessage() {
+    printf("==================================================================\r\n");
+    ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
+    ManagedString signedPacket = sign(message);
+    hexprint(reinterpret_cast<const uint8_t *>(signedPacket.toCharArray()), static_cast<size_t>(signedPacket.length()));
+    printf("==================================================================\r\n");
+}
+
 int main() {
     // necessary to initialize the Calliope mini
     uBit.init();
     uBit.serial.baud(115200);
-    
-    // set up the serial connection to the NB-IoT modem (BC95)
-    uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
-    uBit.serial.baud(9600);
 
-    // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
-    LOG("ubirch NB-IoT hackathon template v1.0");
-
-    // initialize, connect and then send a message (json encoded, signed with the ECC key)
-    if (initializeModem()) {
-        LOG("INITIALIZED");
-        if (attach(6)) {
-            LOG("ATTACHED");
-
-            ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
-            ManagedString signedPacket = sign(message, signKey);
-            if (send(signedPacket, "46.23.86.61", 9090)) {
-                LOG("PACKET SENT OK");
-            } else {
-                LOG("FAILED TO SEND");
-            }
-        }
+    for(int i = 0; i < 20; i++) {
+        sendMessage();
     }
 
-    LOG("FINISH");
+//    // set up the serial connection to the NB-IoT modem (BC95)
+//    uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
+//    uBit.serial.baud(9600);
+//
+//    // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
+//    LOG("ubirch NB-IoT hackathon template v1.0");
+//
+//
+//    // initialize, connect and then send a message (json encoded, signed with the ECC key)
+//    if (initializeModem()) {
+//        LOG("INITIALIZED");
+//        if (attach(6)) {
+//            LOG("ATTACHED");
+//
+//            ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
+//            ManagedString signedPacket = sign(message);
+//            if (send(signedPacket, "46.23.86.61", 9090)) {
+//                LOG("PACKET SENT OK");
+//            } else {
+//                LOG("FAILED TO SEND");
+//            }
+//        }
+//    }
+
+//    LOG("FINISH");
 }
 
 
