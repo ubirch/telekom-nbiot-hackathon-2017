@@ -29,13 +29,6 @@
 #include <stdint.h>
 
 /**
- * Sign and create a package that can be sent to the ubirch backend.
- * @param message the data to sign and package
- * @return a StringData object with the msgpack encoded and signed data
- */
-PacketBuffer sign(ManagedString message);
-
-/**
  * Convert the input into a hex encoded string.
  * @param input the input
  * @return the hex encoded string

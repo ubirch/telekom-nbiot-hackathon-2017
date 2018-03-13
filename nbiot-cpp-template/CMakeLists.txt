@@ -58,7 +58,7 @@ file(GLOB_RECURSE NRF51_SDK_SRC
 add_library(nrf51sdk ${NRF51_SDK_SRC})
 include_directories(${NRF51_SDK_INC})
 
-include(yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
+include(yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
 
 add_library(msgpack
         yotta_modules/ubirch-mbed-msgpack/msgpack/fbuffer.h
@@ -84,15 +84,23 @@ add_library(msgpack
 target_include_directories(msgpack PUBLIC yotta_modules/ubirch-mbed-msgpack)
 
 add_library(ubirch-protocol
-        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol.h
-        yotta_modules/ubirch-protocol/ubirch/ubirch_ed25519.h
-        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.h
-        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.c
-        yotta_modules/ubirch-protocol/ubirch/digest/sha512.h
-        yotta_modules/ubirch-protocol/ubirch/digest/sha512.c
-        yotta_modules/ubirch-protocol/ubirch/digest/config.h)
-target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol)
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol.h
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_ed25519.h
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.h
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.c
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/sha512.h
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/sha512.c
+        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/config.h)
+target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol)
 target_link_libraries(ubirch-protocol libnacl msgpack)
+
+add_library(ubirch-protocol-calliope
+        yotta_modules/ubirch-protocol-calliope/source/ubirch-protocol-calliope.h
+        yotta_modules/ubirch-protocol-calliope/source/ubirch-protocol-calliope.cpp
+        yotta_modules/ubirch-protocol-calliope/source/random.c
+        )
+target_include_directories(ubirch-protocol-calliope PUBLIC yotta_modules/ubirch-protocol-calliope/source)
+target_link_libraries(ubirch-protocol-calliope microbit microbit-dal ubirch-protocol nrf51sdk)
 
 add_executable(main
         source/main.cpp
@@ -100,7 +108,7 @@ add_executable(main
         source/utils/random.c
         # add more source files here, if needed
         )
-target_link_libraries(main microbit microbit-dal ubirch-protocol nrf51sdk)
+target_link_libraries(main microbit microbit-dal ubirch-protocol-calliope nrf51sdk)
 
 add_custom_target(compile
         COMMAND yt build

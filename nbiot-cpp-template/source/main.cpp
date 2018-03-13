@@ -13,6 +13,7 @@
 #include <MicroBit.h>
 #include "utils/utils.h"
 #include <armnacl.h>
+#include <source/ubirch-protocol-calliope.h>
 
 // if you want to see AT commands and responses, uncomment this
 //#define SHOW_AT_COMMANDS
@@ -128,7 +129,7 @@ bool send(ManagedString &message, const char *server, int port) {
 void sendMessage() {
     printf("==================================================================\r\n");
     ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
-    ManagedString signedPacket = sign(message);
+    ManagedString signedPacket = createSignedPacket(message);
     hexprint(reinterpret_cast<const uint8_t *>(signedPacket.toCharArray()), static_cast<size_t>(signedPacket.length()));
     printf("==================================================================\r\n");
 }
