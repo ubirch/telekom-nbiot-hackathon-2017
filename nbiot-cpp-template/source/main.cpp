@@ -14,6 +14,12 @@
 #include "utils/utils.h"
 #include "nacl/armnacl.h"
 
+// ATTENTION: Select the correct COPS value depending on the network you are on (Germany or Austria)
+
+
+//#define COPS  "26201"   // Telekom-DE
+#define COPS  "23203"     // Telekom-AT
+
 // if you want to see AT commands and responses, uncomment this
 //#define SHOW_AT_COMMANDS
 
@@ -89,11 +95,6 @@ ManagedString expectOK(ManagedString command) {
 
 // initialize the BC95 NB-IoT Modem, checks the firmware and updates mandatory settings
 bool initializeModem() {
-// removed, as it blocks initializion on newer hardware
-//    if (!(expectOK("+CGMR") == "V100R100C10B656")) {
-//        uBit.display.scroll("BC95 wrong firmware");
-//        return false;
-//    }
     // setup some basics
     expectOK("+NCONFIG=AUTOCONNECT,TRUE");
     expectOK("+NCONFIG=CR_0354_0338_SCRAMBLING,TRUE");
@@ -104,7 +105,7 @@ bool initializeModem() {
 // attach to the NB-IoT network, waits 1s per try
 bool attach(int tries) {
     expectOK("+CFUN=1");
-    if (expectOK("+COPS=1,2,\"26201\"") == "OK") {
+    if (expectOK("+COPS=1,2,\"" COPS "\"") == "OK") {
         for (int i = 0; i < tries; i++) {
             if (expectOK("+CGATT?") == "+CGATT:1") return true;
             uBit.sleep(1000);
