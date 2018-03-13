@@ -1,6 +1,6 @@
 [![ubirch GmbH](files/ubirch.png)](https://ubirch.com)
 
-# Telekom NB-IoT Hackathon 2017
+# Telekom NB-IoT Hackathon
 
 ## Zusammenbau des Quectel-NB-IoT-Moduls
 

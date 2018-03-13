@@ -1,9 +1,6 @@
 [![ubirch GmbH](files/ubirch.png)](https://ubirch.com)
 
-# Telekom NB-IoT Hackathon 2017
-
-> **Info Presentation: [goo.gl/Mf6J41](https://goo.gl/Mf6J41)**
-
+# Telekom NB-IoT Hackathon
 
 1. HOWTO
     1. [GERMAN](#german)
