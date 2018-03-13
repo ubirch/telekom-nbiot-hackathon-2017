@@ -15,8 +15,6 @@
 #include "nacl/armnacl.h"
 
 // ATTENTION: Select the correct COPS value depending on the network you are on (Germany or Austria)
-
-
 //#define COPS  "26201"   // Telekom-DE
 #define COPS  "23203"     // Telekom-AT
 

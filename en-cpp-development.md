@@ -25,6 +25,9 @@ To install the development environment, follow these steps:
 4. use `yt build` to compile
 5. copy the resulting `build/calliope-mini-classic-gcc/source/calliope-project-template-combined.hex` file to the `MINI` USB drive
 
+> **ATTENTION:** Please select the correct value for `COPS` in main.cpp. It is different, depending on the network 
+> you use. For Germany: `26201` and for Austria: `23203`.
+
 ## Development
 
 The sources for the example project are located in `source/main.cpp`. The same directory also contains additional

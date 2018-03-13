@@ -70,7 +70,7 @@ bc95.init(
     BaudRate.BaudRate9600
 )
 bc95.attach(
-    6
+    6, 23203 // IF IN GERMANY USE 26201
 )
 bc95.setServer("13.93.47.253", 9090)
 ```
