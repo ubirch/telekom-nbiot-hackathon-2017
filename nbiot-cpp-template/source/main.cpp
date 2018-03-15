@@ -126,48 +126,36 @@ bool send(ManagedString &message, const char *server, int port) {
     return false;
 }
 
-void sendMessage() {
-    printf("==================================================================\r\n");
-    ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
-    ManagedString signedPacket = createSignedPacket(message);
-    hexprint(reinterpret_cast<const uint8_t *>(signedPacket.toCharArray()), static_cast<size_t>(signedPacket.length()));
-    printf("==================================================================\r\n");
-}
-
 int main() {
     // necessary to initialize the Calliope mini
     uBit.init();
     uBit.serial.baud(115200);
 
-    for(int i = 0; i < 20; i++) {
-        sendMessage();
+    // set up the serial connection to the NB-IoT modem (BC95)
+    uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
+    uBit.serial.baud(9600);
+
+    // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
+    LOG("ubirch NB-IoT hackathon template v1.0");
+
+
+    // initialize, connect and then send a message (json encoded, signed with the ECC key)
+    if (initializeModem()) {
+        LOG("INITIALIZED");
+        if (attach(6)) {
+            LOG("ATTACHED");
+
+            ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
+            ManagedString signedPacket = createSignedPacket(message);
+            if (send(signedPacket, "46.23.86.61", 9090)) {
+                LOG("PACKET SENT OK");
+            } else {
+                LOG("FAILED TO SEND");
+            }
+        }
     }
 
-//    // set up the serial connection to the NB-IoT modem (BC95)
-//    uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
-//    uBit.serial.baud(9600);
-//
-//    // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
-//    LOG("ubirch NB-IoT hackathon template v1.0");
-//
-//
-//    // initialize, connect and then send a message (json encoded, signed with the ECC key)
-//    if (initializeModem()) {
-//        LOG("INITIALIZED");
-//        if (attach(6)) {
-//            LOG("ATTACHED");
-//
-//            ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
-//            ManagedString signedPacket = sign(message);
-//            if (send(signedPacket, "46.23.86.61", 9090)) {
-//                LOG("PACKET SENT OK");
-//            } else {
-//                LOG("FAILED TO SEND");
-//            }
-//        }
-//    }
-
-//    LOG("FINISH");
+    LOG("FINISH");
 }
 
 
