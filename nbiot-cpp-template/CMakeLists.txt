@@ -58,7 +58,7 @@ file(GLOB_RECURSE NRF51_SDK_SRC
 add_library(nrf51sdk ${NRF51_SDK_SRC})
 include_directories(${NRF51_SDK_INC})
 
-include(yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
+include(yotta_modules/ubirch-mbed-nacl-cm0/lib.cmake)
 
 add_library(msgpack
         yotta_modules/ubirch-mbed-msgpack/msgpack/fbuffer.h
@@ -84,14 +84,14 @@ add_library(msgpack
 target_include_directories(msgpack PUBLIC yotta_modules/ubirch-mbed-msgpack)
 
 add_library(ubirch-protocol
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol.h
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_ed25519.h
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.h
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.c
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/sha512.h
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/sha512.c
-        yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol/ubirch/digest/config.h)
-target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol-calliope/yotta_modules/ubirch-protocol)
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_ed25519.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.h
+        yotta_modules/ubirch-protocol/ubirch/ubirch_protocol_kex.c
+        yotta_modules/ubirch-protocol/ubirch/digest/sha512.h
+        yotta_modules/ubirch-protocol/ubirch/digest/sha512.c
+        yotta_modules/ubirch-protocol/ubirch/digest/config.h)
+target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol)
 target_link_libraries(ubirch-protocol libnacl msgpack)
 
 add_library(ubirch-protocol-calliope

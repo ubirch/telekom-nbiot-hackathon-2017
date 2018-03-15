@@ -195,7 +195,7 @@ int main() {
                     .addMap((int) time, 2)
                     .addInt("t", uBit.thermometer.getTemperature())
                     .addInt("l", uBit.display.readLightLevel());
-            PacketBuffer packet = ubirch.finishMessage();
+            ManagedString packet = ubirch.finishMessage();
 
             if (send(packet, "34.248.246.47", 7070)) {
                 LOG("PACKET SENT OK");
