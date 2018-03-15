@@ -2,7 +2,7 @@
  * This is a simple template on how to use the BC95 NB-IoT modem in conjunction
  * with the ubirch backend.
  *
- * Not the best code, but I am sure the experts will fix that.
+ * If you want to know more about the protocol, see https://github.com/ubirch/ubirch-protocol
  *
  * @copyright (c) ubirch GmbH.
  * @author Matthias L. Jugel.
@@ -13,7 +13,7 @@
 #include <MicroBit.h>
 #include "utils/utils.h"
 #include <armnacl.h>
-#include <source/ubirch-protocol-calliope.h>
+#include <CryptoUbirchProtocol.h>
 
 // ATTENTION: Select the correct COPS value depending on the network you are on (Germany or Austria)
 //#define COPS  "26201"   // Telekom-DE
@@ -54,6 +54,7 @@ unsigned char ed25519_secret_key[crypto_sign_SECRETKEYBYTES] = {
 };
 
 MicroBit uBit;
+CryptoUbirchProtocol ubirch;
 
 // log a message to the USB console
 // this will switch the serial back and forth between the modem and the USB, not nice
@@ -130,6 +131,36 @@ bool send(ManagedString &message, const char *server, int port) {
     return false;
 }
 
+/**
+ * Save the last generated signature to Calliope mini flash.
+ */
+void saveSignature() {
+    uBit.serial.printf("saving last signature...\r\n");
+    PacketBuffer signature = ubirch.getLastSignature();
+    uBit.storage.put("s1", signature.getBytes(), 32);
+    uBit.storage.put("s2", signature.getBytes() + 32, 32);
+}
+
+/**
+ * Load the latest signature from flash (after reset).
+ */
+void loadSignature() {
+    KeyValuePair *s1 = uBit.storage.get("s1");
+    KeyValuePair *s2 = uBit.storage.get("s2");
+    if (s1 && s2) {
+        uBit.serial.printf("found last signature...\r\n");
+        uint8_t s[64];
+        memcpy(s, s1->value, 32);
+        memcpy(s + 32, s2->value, 32);
+        PacketBuffer signature(s, sizeof(s));
+        ubirch.setLastSignature(signature);
+    }
+    // make sure to free memory
+    delete s1;
+    delete s2;
+}
+
+
 int main() {
     // necessary to initialize the Calliope mini
     uBit.init();
@@ -146,17 +177,35 @@ int main() {
     if (initializeModem()) {
         LOG("INITIALIZED");
         if (attach(6)) {
+            time_t timestamp;
             LOG("ATTACHED");
 
-            ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
-            ManagedString signedPacket = createSignedPacket(message);
-            if (send(signedPacket, "34.248.246.47", 7070)) {
+            // after startup load the stored last signature
+            loadSignature();
+
+            // this will produce the time the Calliope mini is running
+            // maybe update the time during startup from the network?
+            time(&timestamp);
+
+            // create a new data packet using the ubirch-protocol
+            // structure: [ubirch-header..., {"data": {1234: {"t":1234, "l":1234}}}, signature]
+            ubirch.startMessage()
+                    .addMap(1)
+                    .addMap("data", 1)
+                    .addMap((int) time, 2)
+                    .addInt("t", uBit.thermometer.getTemperature())
+                    .addInt("l", uBit.display.readLightLevel());
+            PacketBuffer packet = ubirch.finishMessage();
+
+            if (send(packet, "34.248.246.47", 7070)) {
                 LOG("PACKET SENT OK");
+                saveSignature();
             } else {
                 LOG("FAILED TO SEND");
             }
         }
     }
+
 
     LOG("FINISH");
 }

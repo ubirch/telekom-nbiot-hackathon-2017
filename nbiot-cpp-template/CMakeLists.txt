@@ -95,8 +95,8 @@ target_include_directories(ubirch-protocol PUBLIC yotta_modules/ubirch-protocol-
 target_link_libraries(ubirch-protocol libnacl msgpack)
 
 add_library(ubirch-protocol-calliope
-        yotta_modules/ubirch-protocol-calliope/source/ubirch-protocol-calliope.h
-        yotta_modules/ubirch-protocol-calliope/source/ubirch-protocol-calliope.cpp
+        yotta_modules/ubirch-protocol-calliope/source/CryptoUbirchProtocol.h
+        yotta_modules/ubirch-protocol-calliope/source/CryptoUbirchProtocol.h
         yotta_modules/ubirch-protocol-calliope/source/random.c
         )
 target_include_directories(ubirch-protocol-calliope PUBLIC yotta_modules/ubirch-protocol-calliope/source)
