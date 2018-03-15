@@ -149,7 +149,7 @@ int main() {
 
             ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
             ManagedString signedPacket = sign(message, signKey);
-            if (send(signedPacket, "46.23.86.61", 9090)) {
+            if (send(signedPacket, "34.248.246.47", 7070)) {
                 LOG("PACKET SENT OK");
             } else {
                 LOG("FAILED TO SEND");

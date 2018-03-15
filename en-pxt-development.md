@@ -73,7 +73,7 @@ bc95.attach(
     23203, // IF IN GERMANY USE 26201
     6
 )
-bc95.setServer("13.93.47.253", 9090)
+bc95.setServer("34.248.246.47", 7070)
 ```
 
 > After changing code: remember to download the program again and copy the resulting file onto the USB drive `MINI`. 
