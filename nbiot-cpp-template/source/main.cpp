@@ -190,11 +190,11 @@ int main() {
             // create a new data packet using the ubirch-protocol
             // structure: [ubirch-header..., {"data": {1234: {"t":1234, "l":1234}}}, signature]
             ubirch.startMessage()
-                    .addMap(1)
-                    .addMap("data", 1)
-                    .addMap((int) time, 2)
-                    .addInt("t", uBit.thermometer.getTemperature())
-                    .addInt("l", uBit.display.readLightLevel());
+                    .addMap(1)                                       // payload is a map
+                    .addMap("data", 1)                               // contains a single key "data", which is a map
+                    .addMap((int) time, 2)                           // data map has key timestamp and 2 entries
+                    .addInt("t", uBit.thermometer.getTemperature())  // first entry is the temperature
+                    .addInt("l", uBit.display.readLightLevel());     // second is the light level
             ManagedString packet = ubirch.finishMessage();
 
             if (send(packet, "34.248.246.47", 7070)) {
