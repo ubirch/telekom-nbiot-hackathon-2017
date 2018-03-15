@@ -167,7 +167,7 @@ int main() {
     uBit.serial.baud(115200);
     
     // set up the serial connection to the NB-IoT modem (BC95)
-    uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
+    uBit.serial.redirect(A_TX, A_RX);
     uBit.serial.baud(9600);
 
     // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
