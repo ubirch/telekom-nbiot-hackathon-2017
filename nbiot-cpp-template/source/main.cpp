@@ -192,7 +192,7 @@ int main() {
             ubirch.startMessage()
                     .addMap(1)                                       // payload is a map with a single entry
                     .addMap("data", 1)                               // contains a single key "data", which is a map
-                    .addMap((int) time, 2)                           // data map has key timestamp and 2 entries
+                    .addMap((int) timestamp, 2)                      // data map has key timestamp and 2 entries
                     .addInt("t", uBit.thermometer.getTemperature())  // first entry is the temperature
                     .addInt("l", uBit.display.readLightLevel());     // second is the light level
             ManagedString packet = ubirch.finishMessage();
