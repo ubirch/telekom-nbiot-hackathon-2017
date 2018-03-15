@@ -70,9 +70,10 @@ bc95.init(
     BaudRate.BaudRate9600
 )
 bc95.attach(
+    23203, // IN DEUTSCHLAND IST DAS 26201
     6
 )
-bc95.setServer("13.93.47.253", 9090)
+bc95.setServer("34.248.246.47", 7070)
 ```
 
 > Nachdem ein Programm erstellt wurde, kann dieses heruntergeladen werden und muss dann erneut auf 

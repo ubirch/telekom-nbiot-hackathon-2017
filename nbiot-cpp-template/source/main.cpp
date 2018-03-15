@@ -15,6 +15,10 @@
 #include <armnacl.h>
 #include <source/ubirch-protocol-calliope.h>
 
+// ATTENTION: Select the correct COPS value depending on the network you are on (Germany or Austria)
+//#define COPS  "26201"   // Telekom-DE
+#define COPS  "23203"     // Telekom-AT
+
 // if you want to see AT commands and responses, uncomment this
 //#define SHOW_AT_COMMANDS
 
@@ -100,7 +104,7 @@ bool initializeModem() {
 // attach to the NB-IoT network, waits 1s per try
 bool attach(int tries) {
     expectOK("+CFUN=1");
-    if (expectOK("+COPS=1,2,\"26201\"") == "OK") {
+    if (expectOK("+COPS=1,2,\"" COPS "\"") == "OK") {
         for (int i = 0; i < tries; i++) {
             if (expectOK("+CGATT?") == "+CGATT:1") return true;
             uBit.sleep(1000);
@@ -130,14 +134,13 @@ int main() {
     // necessary to initialize the Calliope mini
     uBit.init();
     uBit.serial.baud(115200);
-
+    
     // set up the serial connection to the NB-IoT modem (BC95)
     uBit.serial.redirect(MICROBIT_PIN_P8, MICROBIT_PIN_P2);
     uBit.serial.baud(9600);
 
     // printf won't work after the mode has been initialized, use DEBUG(prefix, message)
     LOG("ubirch NB-IoT hackathon template v1.0");
-
 
     // initialize, connect and then send a message (json encoded, signed with the ECC key)
     if (initializeModem()) {
@@ -147,7 +150,7 @@ int main() {
 
             ManagedString message = "{\"temperature\":" + ManagedString(uBit.thermometer.getTemperature()) + "}";
             ManagedString signedPacket = createSignedPacket(message);
-            if (send(signedPacket, "46.23.86.61", 9090)) {
+            if (send(signedPacket, "34.248.246.47", 7070)) {
                 LOG("PACKET SENT OK");
             } else {
                 LOG("FAILED TO SEND");
